@@ -1,0 +1,6 @@
+nodemon.json
+node_modules
+.env
+server.cert
+server.key
+message.txt

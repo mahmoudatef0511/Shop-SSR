@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs')%>
+<link rel="stylesheet" href="/css/cart.css" />
+</head>
+<body>
+<%- include('../includes/navigation.ejs')%>
+    <main>
+        <% if(products.length > 0) { %>
+            <ul class="cart__item-list">
+                <% for(product of products) { %>
+                    <% const {title, _id, price, quantity} = product; %>
+                    <li class="cart__item">
+                        <h2><%=title%></h2>
+                        <h2>Quantity: <%=quantity%></h2>
+                        <!-- <p><%=title%> (<%=quantity%>) %></p> -->
+                        <form action="/cart-delete-product" method="POST">
+                            <button class="btn" type="submit">Delete</button>
+                            <input type="hidden" name="id" value="<%= _id %>">
+                            <input type="hidden" name="price" value="<%= price %>">
+                            <%- include('../includes/csrf.ejs')%>
+                        </form>
+                    </li>           
+                <% } %>
+            </ul>
+            <hr>
+            <div class="centered">
+                <!-- <form action="/create-order" method="POST">
+                    <button class="btn" type="submit">Proceed to checkout</button>
+                    <%- include('../includes/csrf.ejs')%>
+                </form> -->
+                <a href="/checkout" class="btn">Proceed to Checkout</a>
+            </div>
+        <% } else { %>
+            <h1>No Products in Cart!</h1>
+        <% } %>
+
+    </main>
+<%- include('../includes/end.ejs')%>
